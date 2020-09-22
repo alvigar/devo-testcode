@@ -4,7 +4,6 @@ import devo.exceptions.DirectoryException;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.DirectoryIteratorException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,20 +12,17 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.lang.Thread.sleep;
+
 public class TermFrequency
 {
-  private TermFrequecyThread thread;
-
   public TermFrequency(String directory, Integer top, Integer period, String[] terms)
   {
-    this.thread = new TermFrequecyThread(directory, top, period, terms);
-    if (!this.thread.isAlive())
-    {
-      this.thread.start();
-    }
+    Thread thread = new Thread(new TermFrequecyThread(directory, top, period, terms));
+    thread.start();
   }
 
-  class TermFrequecyThread extends Thread
+  class TermFrequecyThread implements Runnable
   {
     private String directory;
 
@@ -48,7 +44,7 @@ public class TermFrequency
     }
 
     @Override
-    public synchronized void start()
+    public synchronized void run()
     {
       try
       {
@@ -80,7 +76,6 @@ public class TermFrequency
       catch (InterruptedException | DirectoryException | IOException e)
       {
         e.printStackTrace();
-        this.interrupt();
       }
     }
 
@@ -90,6 +85,7 @@ public class TermFrequency
                         .sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
                         .limit(this.top).forEach(x -> System.out
           .println(x.getKey() + " - " + x.getValue()));
+      System.out.println("----------");
     }
 
     private Double termFrequencyInFile(String path) throws IOException
