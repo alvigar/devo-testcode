@@ -7,7 +7,7 @@ To run the application and use the differents functions that implements this app
  
  `java -jar devo-testcode-1.0-SNAPSHOT.jar [OPTIONS]`
  
-###Palindrome `-P`
+### Palindrome `-P`
 
 To check if a word is palindrome, execute the app with the option `-P` and after separated with spaces
 the different words that would be checked.
@@ -25,7 +25,7 @@ test is palindrome: false
 dvd is palindrome: true
 ```
 
-###Complementary `-C`
+### Complementary `-C`
 
 To check in an array of integers which elements are K-complementary, execute the app with the option `-C`
 and after separated with spaces first the K number and after the integer array wihout spaces and separating
@@ -48,7 +48,7 @@ Complementary of A = 2,5,8,10,600,20,0,43,89,150,23 and K = 10
          - {x1=10, x2=0}
 ```
 
-###Term Frequency `-T`
+### Term Frequency `-T`
 
 To obtain the top N of files which set of term have the highest frequency, execute the app with the option `-T`
 and with the following options:
